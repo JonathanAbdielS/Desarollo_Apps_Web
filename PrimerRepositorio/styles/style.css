@@ -1,0 +1,17 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 30rem;
+    text-align: justify;
+    font-family: Arial, sans-serif;
+}
+h1 {
+    color: #3d3c3c;
+}
+p {
+    font-weight: bold;
+    color: black;
+    max-width: 600px;
+}
