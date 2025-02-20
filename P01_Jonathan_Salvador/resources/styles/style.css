@@ -1,0 +1,39 @@
+#LogIn_img, #Basket_img {
+    max-width: 30px;
+    max-height: 30px;
+    min-width: 30px;
+    min-height: 30px;
+}
+
+#cartLink {
+    text-decoration: none;
+    color: inherit; 
+    display: inline-block;
+}
+
+#cartLink:hover, #cartLink:active, #cartLink:visited {
+    text-decoration: none;
+    color: inherit;
+}
+
+.card img {
+    max-height: 200px;
+    min-height: 200px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.carousel-inner img {
+    height: auto; 
+    object-fit: cover;
+}
+
+.rounded-md image {
+    height: 80;
+    width: 80;
+}
+.remove-btn {
+    cursor: pointer;
+    color: red;
+    margin-left: 10px;
+}
