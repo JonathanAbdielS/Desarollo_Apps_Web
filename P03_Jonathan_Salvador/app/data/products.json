@@ -1,0 +1,22 @@
+[
+  {
+    "uuid": "df2008a5-1c40-4dd1-9db7-8aacc03ae2fb",
+    "name": "Plátano",
+    "imageUrl": "https://images.freeimages.com/images/large-previews/4ec/banana-s-1326714.jpg",
+    "description": "Los mejores plátanos de México, directo desde Tabasco.",
+    "unit": "pieza",
+    "stock": 15,
+    "price": 3.6,
+    "category": "Fruta"
+  },
+  {
+    "uuid": "a1b2c3d4-e5f6-4a3b-9c8d-1e2f3a4b5c6d",
+    "name": "Manzana",
+    "imageUrl": "url",
+    "description": "Manzanas rojas y jugosas, cultivadas en Chihuahua.",
+    "unit": "pieza",
+    "stock": 20,
+    "price": 5,
+    "category": "Fruta"
+  }
+]

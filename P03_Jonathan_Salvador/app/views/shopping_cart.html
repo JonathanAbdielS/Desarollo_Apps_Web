@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Cart page - VerMax</title>
+	<link rel="stylesheet" href="resources/styles/style.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+	<!-- NAV  BAR -->
+	<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="P01_index.html">
+				<img src="resources/img/logo_img.png" alt="Logo" height="40">
+			</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+				data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="P01_index.html">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="P01_about_us.html">About Us</a>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+							data-bs-toggle="dropdown" aria-expanded="false">
+							Products
+						</a>
+						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<li><a class="dropdown-item" href="P01_cat_A.html">Category A</a></li>
+							<li>
+								<hr class="dropdown-divider">
+							</li>
+							<li><a class="dropdown-item" href="P01_cat_ B.html">Category B</a></li>
+						</ul>
+					</li>
+					<li>
+						<form class="d-flex">
+							<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+							<button class="btn btn-outline-success" type="submit">Search</button>
+						</form>
+					</li>
+				</ul>
+				<div data-bs-toggle="modal" href="#" role="button" data-bs-target="#loginModal">
+					<img id="LogIn_img" src="resources/img/login_img.png" />
+					<a>Login</a>
+				</div>
+				<a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+				<a href="P01_cart.html" id="cartLink" role="button">
+					<div>
+						<img id="Basket_img" src="resources/img/Basket_img.png" />
+						<span>Cart</span>
+					</div>
+				</a>
+			</div>
+		</div>
+	</nav>
+	<!--  -->
+
+	<!-- MODAL: Inicio de Sesión -->
+	<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="loginModalLabel">Log In</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="mb-3">
+							<label for="email" class="form-label">Email</label>
+							<div class="input-group">
+								<span class="input-group-text">@</span>
+								<input type="email" class="form-control" id="email" placeholder="Enter your email"
+									required>
+							</div>
+						</div>
+						<div class="mb-3">
+							<label for="password" class="form-label">Password</label>
+							<div class="input-group">
+								<span class="input-group-text">🔑</span>
+								<input type="password" class="form-control" id="password"
+									placeholder="Enter your password" required>
+							</div>
+						</div>
+						<div class="mb-3 form-check">
+							<input type="checkbox" class="form-check-input" id="recordar">
+							<label class="form-check-label" for="recordar">Remember</label>
+						</div>
+						<div class="text-center">
+							<button type="submit" class="btn btn-primary">Login</button>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<p class="mb-0">Don´t have account?
+						<a href="#" data-bs-toggle="modal" data-bs-target="#registerModal">Sign up here</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- MODAL: Registro -->
+	<div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="registerModalLabel">Sign up</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="row">
+							<div class="col-6 mb-3">
+								<input type="text" class="form-control" placeholder="First Name">
+							</div>
+							<div class="col-6 mb-3">
+								<input type="text" class="form-control" placeholder="Last Name">
+							</div>
+						</div>
+						<div class="mb-3">
+							<input type="email" class="form-control" placeholder="Email">
+						</div>
+						<div class="mb-3">
+							<input type="password" class="form-control" placeholder="Password">
+						</div>
+						<div class="mb-3">
+							<input type="password" class="form-control" placeholder="Confirm Password">
+						</div>
+						<div class="text-center">
+							<button type="submit" class="btn btn-success">Sign Up</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--  -->
+
+	<!-- Shopping Cart -->
+	<div class="container mt-4">
+		<div class="row">
+			<!-- Cart Items -->
+			<div class="col-md-8">
+				<div class="card p-3 mb-3">
+					<h4>Lechuga <span class="remove-btn">🗑️</span></h4>
+					<div class="d-flex">
+						<div>
+							<p class="w-35 bg-light p-2 rounded">Quantity: <input type="number" value="5" min="1"></p>
+							<p class="w-35 bg-light p-2 rounded">Price: <input type="number" value="20" min="1"> MXN</p>
+						</div>
+						<div class="ms-auto">
+							<img alt="Product A image" class="rounded" src="resources/img/Lechuga_img.png" />
+						</div>
+					</div>
+				</div>
+				<div class="card p-3 mb-3">
+					<h4>Morron <span class="remove-btn">🗑️</span></h4>
+					<div class="d-flex">
+						<div>
+							<p class="w-35 bg-light p-2 rounded"> Quantity: <input type="number" value="5" min="1"></p>
+							<p class="w-35 bg-light p-2 rounded">Price: <input type="number" value="30" min="1"> MXN</p>
+						</div>
+						<div class="ms-auto">
+							<img alt="Product A image" class="rounded-md" height="80" src="resources/img/Morron_img.png"
+								width="80" />
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-4">
+				<div class="card p-3">
+					<h5>Total purchase:</h5>
+					<p><strong>Lechuga:</strong> 2 x 20.00 MXN</p>
+					<p><strong>Morron:</strong> 5 x 30.00 MXN</p>
+					<p><strong>Shipping cost:</strong> 60.00 MXN</p>
+					<h4>Total: 250.00 MXN</h4>
+					<a class="btn btn-primary w-100 mb-2" href="P01_orders.html">Pay</a>
+					<a class="btn btn-danger w-100">Cancel</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
