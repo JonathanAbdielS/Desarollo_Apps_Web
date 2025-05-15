@@ -1,8 +1,7 @@
 // public/js/admin-users.js
 import { getToken, getCurrentUser, isLoggedIn, logoutUser } from './auth.js';
+import { API_BASE_URL } from './config.js';
 import { showAlert } from './ui.js';
-
-const API_BASE_URL = 'http://localhost:3000/api';
 
 const usersTableBody = document.getElementById('admin-users-table-body');
 const userRoleModalElement = document.getElementById('userRoleModal');

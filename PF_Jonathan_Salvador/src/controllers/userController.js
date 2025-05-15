@@ -3,11 +3,6 @@ const User = require('../models/user');
 const Sale = require('../models/Sale'); // Para verificar si un usuario tiene ventas antes de eliminarlo
 const Cart = require('../models/Cart'); // Para eliminar el carrito del usuario si se elimina el usuario
 
-// Funciones que ya podríamos tener del authController o nuevas
-// @desc    Obtener datos del usuario actual (ya existe en authController como getMe)
-//          Podríamos moverlo aquí si queremos centralizar más las operaciones de usuario.
-//          Por ahora, lo mantenemos en authController para la ruta /api/auth/me
-
 // --- Funciones para Administradores ---
 
 // @desc    Obtener todos los usuarios (Admin)

@@ -1,9 +1,8 @@
 // public/js/my-profile-page.js
 import { getToken, getCurrentUser, isLoggedIn, loginUser, registerUser, logoutUser } from './auth.js';
+import { API_BASE_URL } from './config.js';
 import { showAlert } from './ui.js';
 import { updateCartCount } from './cart.js'; // Para actualizar el contador en el navbar
-
-const API_BASE_URL = 'http://localhost:3000/api';
 
 const profileDetailsContent = document.getElementById('profile-details-content');
 const profileDetailsLoader = document.getElementById('profile-details-loader');
@@ -24,7 +23,7 @@ const changePasswordForm = document.getElementById('changePasswordForm');
 const savePasswordChangeBtn = document.getElementById('savePasswordChangeBtn');
 
 
-// --- Navbar (similar a otras páginas) ---
+// --- Navbar ---
 function updateProfilePageNavbar() {
     const userSessionControls = document.getElementById('user-session-controls-profile');
     const cartLinkContainer = document.getElementById('cart-link-container-profile');

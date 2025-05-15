@@ -1,7 +1,7 @@
 // src/controllers/authController.js
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs'); // Ya lo instalamos, pero lo requerimos aquí también
+const bcrypt = require('bcryptjs');
 
 // @desc    Registrar un nuevo usuario
 // @route   POST /api/auth/register
@@ -161,11 +161,6 @@ const changePassword = async (req, res) => {
         // El hook pre-save en el modelo User se encargará de hashear la nueva contraseña
         user.password = newPassword;
         await user.save();
-
-        // Opcional: ¿Invalidar tokens antiguos? Para una app simple, no es estrictamente necesario,
-        // el usuario podría seguir usando el token antiguo hasta que expire.
-        // Para mayor seguridad, se podría implementar una lista negra de tokens o similar.
-
         res.json({ message: 'Contraseña actualizada exitosamente. Por favor, vuelve a iniciar sesión con tu nueva contraseña.' });
 
     } catch (error) {

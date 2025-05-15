@@ -1,9 +1,8 @@
 // public/js/orders-page.js
 import { getToken, getCurrentUser, isLoggedIn, loginUser, registerUser } from './auth.js';
 import { showAlert } from './ui.js';
+import { API_BASE_URL } from './config.js';
 import { updateCartCount } from './cart.js'; // Para actualizar el contador en el navbar
-
-const API_BASE_URL = 'http://localhost:3000/api';
 
 const ordersListContainer = document.getElementById('orders-list-container');
 const noOrdersMessage = document.getElementById('no-orders-message');
@@ -28,7 +27,7 @@ function updateOrdersPageNavbar() {
                 <a class="nav-link dropdown-toggle active" href="#" id="accountDropdownOrders" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Mi Cuenta
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdownOrders">
-                    <li><a class="dropdown-item active" href="P01_orders.html">Mis Compras</a></li>
+                    <li><a class="dropdown-item active" href="orders.html">Mis Compras</a></li>
                     ${user.tipo_usuario === 'admin' ? `
                         <li><a class="dropdown-item" href="admin_movies.html">Gestionar Películas</a></li>
                         <li><a class="dropdown-item" href="admin_users.html">Gestionar Usuarios</a></li>
@@ -41,7 +40,7 @@ function updateOrdersPageNavbar() {
         `;
         if (cartLinkContainer) {
             cartLinkContainer.innerHTML = `
-                <a href="P01_cart.html" class="nav-link position-relative" role="button">
+                <a href="cart.html" class="nav-link position-relative" role="button">
                     <img src="img/Basket_img.png" alt="Carrito" style="width:30px; height:30px;"/>
                     <span class="visually-hidden">Carrito</span>
                     <span id="cart-count-orders" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
@@ -58,7 +57,7 @@ function updateOrdersPageNavbar() {
                 localStorage.removeItem('user');
                 updateOrdersPageNavbar();
                 updateCartCountOnOrdersNavbar(); // Actualiza el contador a 0
-                window.location.href = 'P01_index.html'; // O la página de inicio que hayas definido
+                window.location.href = 'index.html'; // O la página de inicio que hayas definido
             });
         }
     } else {
@@ -170,7 +169,7 @@ async function renderSalesHistory() {
         const shortId = sale._id.substring(sale._id.length - 7).toUpperCase(); // Un poco más largo para unicidad visual
 
         const accordionItem = document.createElement('div');
-        accordionItem.className = 'accordion-item mb-2 shadow-sm'; // Añadido shadow para mejor UI
+        accordionItem.className = 'accordion-item mb-2 shadow-sm';
         accordionItem.innerHTML = `
             <h2 class="accordion-header" id="heading-${sale._id}">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-${sale._id}" aria-expanded="false" aria-controls="collapse-${sale._id}">

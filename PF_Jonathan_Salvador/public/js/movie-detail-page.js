@@ -1,9 +1,8 @@
 // public/js/movie-detail-page.js
 import { getToken, getCurrentUser, isLoggedIn, loginUser, registerUser, logoutUser } from './auth.js';
 import { showAlert } from './ui.js';
+import { API_BASE_URL } from './config.js';
 import { addItemToCartAndUpdateCount, updateCartCount } from './cart.js';
-
-const API_BASE_URL = 'http://localhost:3000/api';
 
 const movieDetailContent = document.getElementById('movie-detail-content');
 const loader = document.getElementById('movie-detail-loader');

@@ -1,9 +1,9 @@
 // public/js/cart-page.js
 import { getToken, getCurrentUser, isLoggedIn, loginUser, registerUser } from './auth.js';
-import { updateNavbar as updateGlobalNavbar, showAlert } from './ui.js'; // 'updateGlobalNavbar' para diferenciar
+import { API_BASE_URL } from './config.js';
+import { updateNavbar as updateGlobalNavbar, showAlert } from './ui.js';
 import { fetchCart, updateCartItemQuantity as apiUpdateQty, removeCartItem as apiRemoveItem, clearCart as apiClearCart, updateCartCount } from './cart.js';
 
-const API_BASE_URL = 'http://localhost:3000/api';
 
 const cartItemsContainer = document.getElementById('cart-items-container');
 const totalItemsSummary = document.getElementById('total-items-summary');
@@ -11,13 +11,11 @@ const subtotalGeneralSummary = document.getElementById('subtotal-general-summary
 const checkoutBtn = document.getElementById('checkout-btn');
 const clearCartBtn = document.getElementById('clear-cart-btn');
 
-// --- Funciones para actualizar la UI del Navbar específicas de esta página del carrito ---
 function updateCartPageNavbar() {
     const userSessionControls = document.getElementById('user-session-controls-cart');
     const cartLinkContainer = document.getElementById('cart-link-container-cart');
 
     if (!userSessionControls) {
-        // console.warn('Contenedor de sesión de usuario del carrito no encontrado.');
         return;
     }
 
@@ -107,7 +105,7 @@ async function updateCartCountOnNavbar() {
 
 async function renderCartItems() {
     if (!isLoggedIn()) {
-        updateCartPageNavbar(); // Esto ya debería mostrar el mensaje de "iniciar sesión"
+        updateCartPageNavbar();
         return;
     }
     if (!cartItemsContainer || !totalItemsSummary || !subtotalGeneralSummary) {
@@ -118,7 +116,7 @@ async function renderCartItems() {
     cartItemsContainer.innerHTML = '<div class="d-flex justify-content-center mt-5"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Cargando carrito...</span></div></div>';
 
     try {
-        const cartData = await fetchCart(); // Espera { items: [...], totalItems, subtotal }
+        const cartData = await fetchCart();
 
         if (!cartData || !cartData.items || cartData.items.length === 0) {
             cartItemsContainer.innerHTML = '<p class="text-center mt-5">Tu carrito está vacío. <a href="index.html">¡Empieza a añadir películas!</a></p>';
@@ -126,16 +124,16 @@ async function renderCartItems() {
             subtotalGeneralSummary.textContent = '0.00';
             if (checkoutBtn) checkoutBtn.disabled = true;
             if (clearCartBtn) clearCartBtn.disabled = true;
-            if (document.getElementById('cart-summary')) document.getElementById('cart-summary').style.display = 'block'; // Mostrar resumen vacío
+            if (document.getElementById('cart-summary')) document.getElementById('cart-summary').style.display = 'block';
             updateCartCountOnNavbar();
             return;
         }
 
-        cartItemsContainer.innerHTML = ''; // Limpiar spinner o mensaje anterior
+        cartItemsContainer.innerHTML = '';
         cartData.items.forEach(item => {
-            if (!item.movie) { // Salvaguarda por si la película no se populó o fue eliminada
+            if (!item.movie) { 
                 console.warn("Ítem del carrito sin datos de película:", item);
-                return; // Saltar este ítem
+                return;
             }
             const itemSubtotal = item.quantity * item.precioUnitarioAlAgregar;
             const itemDiv = document.createElement('div');
@@ -193,7 +191,7 @@ async function renderCartItems() {
 
 function addEventListenersToCartPageItems() {
     document.querySelectorAll('.remove-item-btn').forEach(button => {
-        button.replaceWith(button.cloneNode(true)); // Prevenir listeners duplicados
+        button.replaceWith(button.cloneNode(true));
     });
     document.querySelectorAll('.remove-item-btn').forEach(button => {
         button.addEventListener('click', async function() {
@@ -203,7 +201,7 @@ function addEventListenersToCartPageItems() {
                 try {
                     await apiRemoveItem({ movieId, tipo });
                     showAlert('Ítem eliminado del carrito.', 'success', 'alert-container-cart');
-                    renderCartItems(); // Recargar y re-renderizar el carrito
+                    renderCartItems();
                 } catch (error) {
                     showAlert(error.message || 'Error al eliminar el ítem.', 'danger', 'alert-container-cart');
                 }
@@ -212,7 +210,7 @@ function addEventListenersToCartPageItems() {
     });
 
     document.querySelectorAll('.quantity-input').forEach(input => {
-        input.replaceWith(input.cloneNode(true)); // Prevenir listeners duplicados
+        input.replaceWith(input.cloneNode(true));
     });
 
     let debounceTimer;
@@ -222,11 +220,11 @@ function addEventListenersToCartPageItems() {
             const movieId = this.dataset.movieId;
             const tipo = this.dataset.tipo;
             let quantity = parseInt(this.value);
-            const maxStock = parseInt(this.dataset.stock); // Asumimos que el stock está en el data attribute
+            const maxStock = parseInt(this.dataset.stock);
 
             if (isNaN(quantity) || quantity < 1) {
                 showAlert('La cantidad debe ser al menos 1.', 'warning', 'alert-container-cart');
-                this.value = 1; // Revertir a 1 si es inválido
+                this.value = 1;
                 quantity = 1;
             }
             if (quantity > maxStock) {
@@ -234,14 +232,13 @@ function addEventListenersToCartPageItems() {
                 this.value = maxStock;
                 quantity = maxStock;
             }
-            if (quantity === 0 && maxStock > 0) { // Si se intenta poner 0 y hay stock, poner 1
+            if (quantity === 0 && maxStock > 0) {
                 this.value = 1;
                 quantity = 1;
             }
-            if (maxStock === 0 && quantity > 0) { // Si no hay stock y se intenta poner cantidad > 0
+            if (maxStock === 0 && quantity > 0) {
                 showAlert('Este artículo no tiene stock disponible.', 'danger', 'alert-container-cart');
-                this.value = 0; // O deshabilitar, o forzar a 0.
-                // Quizás recargar el carrito es mejor para que el ítem desaparezca si ya no tiene stock.
+                this.value = 0;
                 renderCartItems();
                 return;
             }
@@ -250,17 +247,16 @@ function addEventListenersToCartPageItems() {
             debounceTimer = setTimeout(async () => {
                 try {
                     await apiUpdateQty({ movieId, quantity, tipo });
-                    renderCartItems(); // Recargar para recalcular totales y asegurar consistencia
+                    renderCartItems();
                 } catch (error) {
                     showAlert(error.message || 'Error al actualizar la cantidad.', 'danger', 'alert-container-cart');
-                    renderCartItems(); // Recargar para revertir a estado anterior válido
+                    renderCartItems();
                 }
-            }, 300); // 300ms debounce
+            }, 300);
         });
     });
 }
 
-// --- Event Listeners para botones de acción del carrito ---
 if (clearCartBtn) {
     clearCartBtn.addEventListener('click', async () => {
         if (confirm('¿Estás seguro de que quieres vaciar todo tu carrito?')) {
@@ -303,7 +299,6 @@ if (checkoutBtn) {
     });
 }
 
-// --- Lógica para los modales de login/registro en esta página ---
 function setupAuthModalsCartPage() {
     const loginFormCart = document.getElementById('loginFormCart');
     const registerFormCart = document.getElementById('registerFormCart');

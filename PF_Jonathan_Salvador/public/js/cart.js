@@ -1,14 +1,11 @@
 // public/js/cart.js
 import { getToken } from './auth.js';
-import { showAlert } from './ui.js'; // showAlert puede ser útil aquí
-
-const API_BASE_URL = 'http://localhost:3000/api';
+import { API_BASE_URL } from './config.js';
+import { showAlert } from './ui.js';
 
 export async function fetchCart() {
     const token = getToken();
     if (!token) {
-        // Devolver una estructura de carrito vacía si no hay token,
-        // para que la UI no falle al esperar un objeto.
         return { items: [], totalItems: 0, subtotal: 0 };
     }
 
@@ -17,22 +14,19 @@ export async function fetchCart() {
             headers: { 'Authorization': `Bearer ${token}` }
         });
         if (!response.ok) {
-            // El backend en getCart crea un carrito vacío si no existe,
-            // así que un error aquí sería inesperado a menos que sea un error del servidor.
             const errorData = await response.json().catch(() => ({ message: "Error al obtener el carrito." }));
             console.error('fetchCart API error:', errorData);
             throw new Error(errorData.message || 'Error al obtener el carrito.');
         }
         const cartData = await response.json();
-        return cartData; // Esperado: { _id, user, items: [...], totalItems, subtotal, ... }
+        return cartData;
     } catch (error) {
         console.error('Error en fetchCart:', error);
-        // Devolver estructura vacía en caso de error para no romper la UI
         return { items: [], totalItems: 0, subtotal: 0, error: error.message };
     }
 }
 
-export async function addItemToCart(itemData) { // itemData = { movieId, quantity, tipo }
+export async function addItemToCart(itemData) {
     const token = getToken();
     if (!token) throw new Error('Debes iniciar sesión para agregar al carrito.');
 
@@ -48,54 +42,52 @@ export async function addItemToCart(itemData) { // itemData = { movieId, quantit
     if (!response.ok) {
         throw new Error(data.message || 'Error al agregar el ítem al carrito.');
     }
-    return data; // Carrito actualizado
+    return data;
 }
 
-// --- FUNCIONES AÑADIDAS ---
-
-export async function updateCartItemQuantity(itemData) { // itemData = { movieId, quantity, tipo }
+export async function updateCartItemQuantity(itemData) {
     const token = getToken();
     if (!token) throw new Error('Debes iniciar sesión para modificar el carrito.');
 
-    const response = await fetch(`${API_BASE_URL}/cart/item`, { // Endpoint para actualizar vía PUT
+    const response = await fetch(`${API_BASE_URL}/cart/item`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify(itemData) // El backend espera movieId, quantity, tipo
+        body: JSON.stringify(itemData)
     });
     const data = await response.json();
     if (!response.ok) {
         throw new Error(data.message || 'Error al actualizar la cantidad del ítem.');
     }
-    return data; // Carrito actualizado
+    return data;
 }
 
-export async function removeCartItem(itemData) { // itemData = { movieId, tipo }
+export async function removeCartItem(itemData) {
     const token = getToken();
     if (!token) throw new Error('Debes iniciar sesión para modificar el carrito.');
 
-    const response = await fetch(`${API_BASE_URL}/cart/item`, { // Endpoint para eliminar vía DELETE
+    const response = await fetch(`${API_BASE_URL}/cart/item`, {
         method: 'DELETE',
         headers: {
-            'Content-Type': 'application/json', // Necesario si el backend espera un body para identificar el ítem
+            'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify(itemData) // El backend espera movieId y tipo
+        body: JSON.stringify(itemData)
     });
     const data = await response.json();
     if (!response.ok) {
         throw new Error(data.message || 'Error al eliminar el ítem del carrito.');
     }
-    return data; // Carrito actualizado
+    return data;
 }
 
 export async function clearCart() {
     const token = getToken();
     if (!token) throw new Error('Debes iniciar sesión para modificar el carrito.');
 
-    const response = await fetch(`${API_BASE_URL}/cart`, { // Endpoint para limpiar todo el carrito
+    const response = await fetch(`${API_BASE_URL}/cart`, {
         method: 'DELETE',
         headers: {
             'Authorization': `Bearer ${token}`
@@ -105,36 +97,29 @@ export async function clearCart() {
     if (!response.ok) {
         throw new Error(data.message || 'Error al limpiar el carrito.');
     }
-    return data; // Puede devolver { message: '...', cart: {...}}
+    return data;
 }
 
-// --- FIN DE FUNCIONES AÑADIDAS ---
-
 export async function updateCartCount() {
-    const cartCountElementGlobal = document.getElementById('cart-count'); // Para el navbar general
-    // El contador específico de la página del carrito ('cart-count-cart') se maneja en cart-page.js
-
-    // Si no hay token, el carrito está vacío.
+    const cartCountElementGlobal = document.getElementById('cart-count'); 
     if (!getToken()) {
         if (cartCountElementGlobal) {
             cartCountElementGlobal.textContent = '0';
             cartCountElementGlobal.style.display = 'none';
         }
-        return { totalItems: 0 }; // Devuelve la estructura esperada
+        return { totalItems: 0 };
     }
 
     try {
-        const cart = await fetchCart(); // fetchCart ahora devuelve una estructura válida incluso en error/no token
+        const cart = await fetchCart();
         const count = cart && cart.totalItems !== undefined ? cart.totalItems : 0;
         
         if (cartCountElementGlobal) {
             cartCountElementGlobal.textContent = count;
             cartCountElementGlobal.style.display = count > 0 ? 'inline-block' : 'none';
         }
-        return { totalItems: count }; // Devuelve el conteo para uso en otras funciones si es necesario
+        return { totalItems: count };
     } catch (error) {
-        // Este catch es menos probable que se active si fetchCart maneja sus propios errores,
-        // pero se mantiene por si acaso.
         if (cartCountElementGlobal) {
             cartCountElementGlobal.textContent = '0';
             cartCountElementGlobal.style.display = 'none';
@@ -143,9 +128,8 @@ export async function updateCartCount() {
     }
 }
 
-// Función combinada para añadir y luego actualizar el contador global
 export async function addItemToCartAndUpdateCount(itemData) {
-    const updatedCart = await addItemToCart(itemData); // Lanza error si falla
-    await updateCartCount(); // Actualiza el contador global en la UI
+    const updatedCart = await addItemToCart(itemData);
+    await updateCartCount();
     return updatedCart;
 }

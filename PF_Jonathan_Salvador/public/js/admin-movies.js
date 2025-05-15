@@ -1,8 +1,7 @@
 // public/js/admin-movies.js
 import { getToken, getCurrentUser, isLoggedIn, logoutUser } from './auth.js';
+import { API_BASE_URL } from './config.js';
 import { showAlert } from './ui.js';
-
-const API_BASE_URL = 'http://localhost:3000/api';
 
 const moviesTableBody = document.getElementById('admin-movies-table-body');
 const paginationContainer = document.getElementById('admin-movies-pagination-container');
@@ -12,15 +11,13 @@ const movieForm = document.getElementById('movieForm');
 const movieFormModalLabel = document.getElementById('movieFormModalLabel');
 const editMovieIdInput = document.getElementById('editMovieId');
 const openAddMovieModalBtn = document.getElementById('openAddMovieModalBtn');
-const saveMovieBtn = document.getElementById('saveMovieBtn'); // Botón de guardar del modal
+const saveMovieBtn = document.getElementById('saveMovieBtn');
 
-let adminCurrentPage = 1; // Para la paginación de la tabla de admin
+let adminCurrentPage = 1; 
 
-// --- Navbar Admin ---
 function updateAdminNavbar() {
     const userSessionControls = document.getElementById('user-session-controls-admin-movies');
     if (!userSessionControls) {
-        // console.warn("Elemento 'user-session-controls-admin-movies' no encontrado.");
         return;
     }
 
@@ -36,12 +33,10 @@ function updateAdminNavbar() {
         if (logoutButton) {
             logoutButton.addEventListener('click', () => {
                 logoutUser();
-                window.location.href = 'index.html'; // Redirigir al home público
+                window.location.href = 'index.html';
             });
         }
     } else {
-        // Si no es admin logueado, la lógica en DOMContentLoaded ya maneja la redirección o mensaje.
-        // Aquí podríamos simplemente no renderizar nada o un botón de login genérico.
         userSessionControls.innerHTML = `<a href="index.html" class="btn btn-primary">Ir al Sitio</a>`;
     }
 }

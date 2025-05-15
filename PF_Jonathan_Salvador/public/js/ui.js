@@ -3,7 +3,7 @@ import { logoutUser, getCurrentUser, isLoggedIn } from './auth.js';
 
 export function updateNavbar() {
     const userSessionControls = document.getElementById('user-session-controls');
-    const cartLinkContainer = document.getElementById('cart-link-container'); // Necesitarás un div contenedor para el enlace del carrito
+    const cartLinkContainer = document.getElementById('cart-link-container');
 
     if (!userSessionControls) return;
 
@@ -78,7 +78,7 @@ export function showAlert(message, type = 'danger', containerId = 'alert-contain
         ${message}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     `;
-    alertContainer.prepend(alertDiv); // Añade al principio para que las más nuevas estén arriba
+    alertContainer.prepend(alertDiv)
 
     // Auto-dismiss después de 5 segundos
     setTimeout(() => {

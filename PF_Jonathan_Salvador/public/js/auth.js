@@ -1,5 +1,5 @@
 // public/js/auth.js
-const API_BASE_URL = 'http://localhost:3000/api'; // Ajusta si tu backend corre en otro puerto/URL
+import { API_BASE_URL } from './config.js';
 
 export async function registerUser(userData) {
     try {
@@ -13,7 +13,7 @@ export async function registerUser(userData) {
             throw new Error(data.message || 'Error al registrar usuario.');
         }
         localStorage.setItem('token', data.token);
-        localStorage.setItem('user', JSON.stringify({ // Guardar algunos datos del usuario
+        localStorage.setItem('user', JSON.stringify({
             _id: data._id,
             username: data.username,
             nombre: data.nombre,

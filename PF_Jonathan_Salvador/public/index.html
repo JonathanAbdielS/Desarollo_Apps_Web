@@ -4,7 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Películas Online - Inicio</title> <link rel="stylesheet" href="css/style.css"> <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Películas Online - Inicio</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
@@ -26,30 +28,18 @@
                     <li class="nav-item">
                         <a class="nav-link" href="about_us.html">Acerca de</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCategories" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Categorías
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownCategories" id="categories-dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Acción</a></li>
-                            <li><a class="dropdown-item" href="#">Comedia</a></li>
-                            <li><a class="dropdown-item" href="#">Drama</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Ver Todas</a></li>
-                        </ul>
-                    </li>
                     <li>
                         <form class="d-flex" id="searchForm">
-                            <input class="form-control me-2" type="search" id="searchInput" placeholder="Buscar películas..." aria-label="Buscar">
+                            <input class="form-control me-2" type="search" id="searchInput"
+                                placeholder="Buscar películas..." aria-label="Buscar">
                             <button class="btn btn-outline-success" type="submit">Buscar</button>
                         </form>
                     </li>
                 </ul>
                 <div id="user-session-controls" class="d-flex align-items-center ms-auto">
-                    </div>
+                </div>
                 <div id="cart-link-container" class="nav-item ms-2">
-                    </div>
+                </div>
             </div>
         </div>
     </nav>
@@ -61,23 +51,34 @@
             <div class="col-md-12 p-3 d-flex justify-content-center">
                 <div id="mainCarousel" class="carousel slide" data-bs-ride="carousel" style="max-width: 266.66px;">
                     <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="0" class="active"
+                            aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="1"
+                            aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="2"
+                            aria-label="Slide 3"></button>
                     </div>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="https://image.tmdb.org/t/p/w500/m9EtP1Yrzv6v7dMaC9mRaGhd1um.jpg" class="d-block w-100" alt="Estreno Película 1"> </div>
+                            <img src="https://image.tmdb.org/t/p/w500/m9EtP1Yrzv6v7dMaC9mRaGhd1um.jpg"
+                                class="d-block w-100" alt="Estreno Película 1">
+                        </div>
                         <div class="carousel-item">
-                            <img src="https://image.tmdb.org/t/p/w500/dDlfjR7gllmr8HTeN6rfrYhTdwX.jpg" class="d-block w-100" alt="Promoción Película 2"> </div>
+                            <img src="https://image.tmdb.org/t/p/w500/dDlfjR7gllmr8HTeN6rfrYhTdwX.jpg"
+                                class="d-block w-100" alt="Promoción Película 2">
+                        </div>
                         <div class="carousel-item">
-                            <img src="https://image.tmdb.org/t/p/w500/fceheXB5fC4WrLVuWJ6OZv9FXYr.jpg" class="d-block w-100" alt="Clásico Película 3"> </div>
+                            <img src="https://image.tmdb.org/t/p/w500/fceheXB5fC4WrLVuWJ6OZv9FXYr.jpg"
+                                class="d-block w-100" alt="Clásico Película 3">
+                        </div>
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
+                    <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel"
+                        data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Anterior</span>
                     </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
+                    <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel"
+                        data-bs-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Siguiente</span>
                     </button>
@@ -85,13 +86,49 @@
             </div>
         </div>
 
-        <h2 class="mt-5 mb-4 text-center">Catálogo de Películas</h2>
-        <div class="row mt-4" id="movie-list-container">
+        <div class="container mt-4">
+            <h2 class="mt-5 mb-4 text-center">Catálogo de Películas</h2>
+
+            <div class="row mb-4 g-3 align-items-end" id="filters-container">
+                <div class="col-md-3">
+                    <label for="filterCategory" class="form-label">Categoría:</label>
+                    <select class="form-select" id="filterCategory">
+                        <option selected value="">Todas las Categorías</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="filterGenre" class="form-label">Género:</label>
+                    <select class="form-select" id="filterGenre">
+                        <option selected value="">Todos los Géneros</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="filterSortBy" class="form-label">Ordenar por:</label>
+                    <select class="form-select" id="filterSortBy">
+                        <option value="createdAt_desc">Más Recientes (Defecto)</option>
+                        <option value="popularidad_desc">Más Populares</option>
+                        <option value="titulo_asc">Título (A-Z)</option>
+                        <option value="titulo_desc">Título (Z-A)</option>
+                        <option value="precio_renta_asc">Precio Renta (Menor a Mayor)</option>
+                        <option value="precio_renta_desc">Precio Renta (Mayor a Menor)</option>
+                        <option value="precio_compra_asc">Precio Compra (Menor a Mayor)</option>
+                        <option value="precio_compra_desc">Precio Compra (Mayor a Menor)</option>
+                    </select>
+                </div>
+                <div class="col-md-2 d-grid">
+                    <button class="btn btn-secondary" id="resetFiltersBtn" type="button">Limpiar Filtros</button>
+                </div>
             </div>
 
-        <div class="container d-flex justify-content-center mt-4" id="pagination-container">
+
+            <div class="row mt-4" id="movie-list-container">
             </div>
+
+            <div class="container d-flex justify-content-center mt-4" id="pagination-container">
+            </div>
+        </div>
     </div>
+
 
     <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -101,14 +138,17 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div id="login-alert-container"></div> <form id="loginForm">
+                    <div id="login-alert-container"></div>
+                    <form id="loginForm">
                         <div class="mb-3">
                             <label for="loginEmailInput" class="form-label">Correo Electrónico</label>
-                            <input type="email" class="form-control" id="loginEmailInput" placeholder="tu@email.com" required>
+                            <input type="email" class="form-control" id="loginEmailInput" placeholder="tu@email.com"
+                                required>
                         </div>
                         <div class="mb-3">
                             <label for="loginPasswordInput" class="form-label">Contraseña</label>
-                            <input type="password" class="form-control" id="loginPasswordInput" placeholder="Contraseña" required>
+                            <input type="password" class="form-control" id="loginPasswordInput" placeholder="Contraseña"
+                                required>
                         </div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary w-100">Login</button>
@@ -117,7 +157,8 @@
                 </div>
                 <div class="modal-footer">
                     <p class="mb-0 w-100 text-center">¿No tienes cuenta?
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#registerModal" data-bs-dismiss="modal">Regístrate aquí</a>
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#registerModal"
+                            data-bs-dismiss="modal">Regístrate aquí</a>
                     </p>
                 </div>
             </div>
@@ -125,35 +166,43 @@
     </div>
 
     <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg"> <div class="modal-content">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="registerModalLabel">Crear Cuenta</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div id="register-alert-container"></div> <form id="registerForm">
+                    <div id="register-alert-container"></div>
+                    <form id="registerForm">
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="registerUsernameInput" class="form-label">Nombre de Usuario</label>
-                                <input type="text" class="form-control" id="registerUsernameInput" placeholder="Ej: usuario123" required>
+                                <input type="text" class="form-control" id="registerUsernameInput"
+                                    placeholder="Ej: usuario123" required>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="registerNombreInput" class="form-label">Nombre Completo</label>
-                                <input type="text" class="form-control" id="registerNombreInput" placeholder="Ej: Ana Pérez" required>
+                                <input type="text" class="form-control" id="registerNombreInput"
+                                    placeholder="Ej: Ana Pérez" required>
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="registerEmailInput" class="form-label">Correo Electrónico</label>
-                            <input type="email" class="form-control" id="registerEmailInput" placeholder="tu@email.com" required>
+                            <input type="email" class="form-control" id="registerEmailInput" placeholder="tu@email.com"
+                                required>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="registerPasswordInput" class="form-label">Contraseña</label>
-                                <input type="password" class="form-control" id="registerPasswordInput" placeholder="Mínimo 6 caracteres" required>
+                                <input type="password" class="form-control" id="registerPasswordInput"
+                                    placeholder="Mínimo 6 caracteres" required>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="registerConfirmPasswordInput" class="form-label">Confirmar Contraseña</label>
-                                <input type="password" class="form-control" id="registerConfirmPasswordInput" placeholder="Repite tu contraseña" required>
+                                <label for="registerConfirmPasswordInput" class="form-label">Confirmar
+                                    Contraseña</label>
+                                <input type="password" class="form-control" id="registerConfirmPasswordInput"
+                                    placeholder="Repite tu contraseña" required>
                             </div>
                         </div>
                         <div class="mb-3">
@@ -165,9 +214,10 @@
                         </div>
                     </form>
                 </div>
-                 <div class="modal-footer">
+                <div class="modal-footer">
                     <p class="mb-0 w-100 text-center">¿Ya tienes cuenta?
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">Inicia Sesión aquí</a>
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">Inicia
+                            Sesión aquí</a>
                     </p>
                 </div>
             </div>
@@ -176,11 +226,11 @@
 
     <footer class="bg-light text-center text-lg-start mt-auto py-3">
         <div class="text-center p-3">
-            © 2025 Nombre de tu Proyecto de Películas
-            <a class="text-dark" href="#">Términos y Condiciones</a>
+            © 2025 VerMax
         </div>
     </footer>
 
     <script type="module" src="js/main.js"></script>
 </body>
+
 </html>

@@ -1,8 +1,7 @@
 // public/js/admin-sales.js
 import { getToken, getCurrentUser, isLoggedIn, logoutUser } from './auth.js';
+import { API_BASE_URL } from './config.js';
 import { showAlert } from './ui.js';
-
-const API_BASE_URL = 'http://localhost:3000/api';
 
 const salesTableBody = document.getElementById('admin-sales-table-body');
 const paginationContainer = document.getElementById('admin-sales-pagination-container');
@@ -18,7 +17,7 @@ const filterSaleStatusSelect = document.getElementById('filterSaleStatus');
 let adminSalesCurrentPage = 1;
 let currentSaleStatusFilter = '';
 
-// --- Navbar Admin (similar a otras páginas de admin) ---
+// --- Navbar Admin ---
 function updateAdminSalesNavbar() {
     const userSessionControls = document.getElementById('user-session-controls-admin-sales');
     if (!userSessionControls) {

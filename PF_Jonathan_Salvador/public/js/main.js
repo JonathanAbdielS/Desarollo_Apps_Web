@@ -1,36 +1,35 @@
 // public/js/main.js
 import { registerUser, loginUser, isLoggedIn } from './auth.js';
 import { updateNavbar, showAlert } from './ui.js';
-import { loadMovies } from './movies.js';
+import { initMoviePage, loadMovies } from './movies.js';
 import { updateCartCount } from './cart.js';
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     updateNavbar();
-    updateCartCount(); // Actualizar el contador del carrito al cargar la página
+    updateCartCount();
 
-    // Cargar películas en la página principal (si estás en ella)
     if (document.getElementById('movie-list-container')) {
+        await initMoviePage();
         loadMovies();
     }
 
-    const loginForm = document.getElementById('loginForm'); // Asegúrate que tu form de login tenga este ID
-    const registerForm = document.getElementById('registerForm'); // Y tu form de registro este ID
+    const loginForm = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
 
     if (loginForm) {
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const email = document.getElementById('loginEmailInput').value; // IDs de tus inputs
+            const email = document.getElementById('loginEmailInput').value;
             const password = document.getElementById('loginPasswordInput').value;
             try {
                 await loginUser({ email, password });
-                bootstrap.Modal.getInstance(document.getElementById('loginModal')).hide(); // Oculta el modal
+                bootstrap.Modal.getInstance(document.getElementById('loginModal')).hide(); 
                 updateNavbar();
                 updateCartCount();
                 showAlert('Inicio de sesión exitoso!', 'success');
-                // Opcional: Redirigir o recargar
-                // window.location.reload();
+                window.location.reload();
             } catch (error) {
-                showAlert(error.message || 'Error al iniciar sesión.', 'danger', 'login-alert-container'); // Contenedor de alerta específico para el modal
+                showAlert(error.message || 'Error al iniciar sesión.', 'danger', 'login-alert-container');
             }
         });
     }
