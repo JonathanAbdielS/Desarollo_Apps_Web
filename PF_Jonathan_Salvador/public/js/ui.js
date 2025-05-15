@@ -18,6 +18,7 @@ export function updateNavbar() {
                     Mi Cuenta
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
+                    <li><a class="dropdown-item" href="my_profile.html">Mi Perfil</a></li>
                     <li><a class="dropdown-item" href="orders.html">Mis Compras</a></li>
                     ${user.tipo_usuario === 'admin' ? `
                         <li><a class="dropdown-item" href="admin_movies.html">Gestionar Películas</a></li>

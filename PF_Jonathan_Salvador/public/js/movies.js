@@ -46,50 +46,68 @@ export async function fetchMovies(page = 1, searchTerm = '', category = '', genr
 }
 
 export function renderMovies(moviesData) {
+    // ... (código existente para limpiar movieListContainer y manejar moviesData vacío) ...
     if (!movieListContainer) {
-        // console.log('movieListContainer no existe en esta página.');
         return;
     }
-    movieListContainer.innerHTML = ''; // Limpiar el contenedor
+    movieListContainer.innerHTML = '';
 
     if (!moviesData || !moviesData.movies || moviesData.movies.length === 0) {
         movieListContainer.innerHTML = '<p class="text-center col-12">No se encontraron películas que coincidan con tu búsqueda.</p>';
-        renderPagination(0, 0); // Limpiar o no mostrar paginación
+        renderPagination(0, 0);
         return;
     }
 
     moviesData.movies.forEach(movie => {
         const card = document.createElement('div');
-        card.className = 'col-6 col-md-4 col-lg-3 mb-4';
-        card.innerHTML = `
-            <div class="card h-100">
+        card.className = 'col-6 col-md-4 col-lg-3 mb-4 movie-card-wrapper'; // Clase para el wrapper del enlace
+
+        // Enlace que envuelve toda la tarjeta (o al menos la imagen y el título)
+        const link = document.createElement('a');
+        link.href = `movie_detail.html?id=${movie._id}`; // Enlace a la página de detalle
+        link.className = 'text-decoration-none text-dark'; // Estilos para que no parezca un enlace feo
+
+        link.innerHTML = `
+            <div class="card h-100 movie-card">
                 <img src="${movie.url_imagen || 'img/placeholder_movie.jpg'}" class="card-img-top" alt="${movie.titulo}" style="height: 350px; object-fit: cover;">
                 <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">${movie.titulo}</h5>
-                    <p class="card-text small text-muted flex-grow-1">${movie.descripcion.substring(0, 80)}${movie.descripcion.length > 80 ? '...' : ''}</p>
+                    <h5 class="card-title movie-card-title">${movie.titulo}</h5>
+                    <p class="card-text small text-muted flex-grow-1 movie-card-description">${movie.descripcion.substring(0, 80)}${movie.descripcion.length > 80 ? '...' : ''}</p>
                     <p class="card-text mb-1"><small class="text-muted">Género: ${Array.isArray(movie.genero) ? movie.genero.join(', ') : movie.genero}</small></p>
-                    <div class="mt-auto">
-                        <p class="card-text mb-1"><strong>Renta: $${movie.precio_renta.toFixed(2)}</strong> (Disp: ${movie.stock_renta})</p>
-                        <p class="card-text"><strong>Compra: $${movie.precio_compra.toFixed(2)}</strong> (Disp: ${movie.stock_compra})</p>
                     </div>
-                </div>
-                <div class="card-footer bg-transparent border-top-0 text-center">
-                    <button class="btn btn-sm btn-outline-primary add-to-cart-btn mb-1 w-100 ${movie.stock_renta <= 0 ? 'disabled' : ''}" 
-                            data-movie-id="${movie._id}" data-tipo="renta" ${movie.stock_renta <= 0 ? 'disabled' : ''}>
-                        Añadir Renta
-                    </button>
-                    <button class="btn btn-sm btn-primary add-to-cart-btn w-100 ${movie.stock_compra <= 0 ? 'disabled' : ''}" 
-                            data-movie-id="${movie._id}" data-tipo="compra" ${movie.stock_compra <= 0 ? 'disabled' : ''}>
-                        Añadir Compra
-                    </button>
-                </div>
             </div>
         `;
+        card.appendChild(link); // Añadir el enlace al div contenedor de la columna
+
+        // Crear el footer con los botones por separado para que no estén dentro del enlace de detalle
+        const cardFooter = document.createElement('div');
+        cardFooter.className = 'card-footer bg-transparent border-top-0 text-center p-2 movie-card-actions';
+        cardFooter.innerHTML = `
+            <div class="mb-2"> <p class="card-text mb-0 d-block"><small><strong>Renta: $${movie.precio_renta.toFixed(2)}</strong> (Disp: ${movie.stock_renta})</small></p>
+                <p class="card-text mb-0 d-block"><small><strong>Compra: $${movie.precio_compra.toFixed(2)}</strong> (Disp: ${movie.stock_compra})</small></p>
+            </div>
+            <button class="btn btn-sm btn-outline-primary add-to-cart-btn mb-1 w-100 ${movie.stock_renta <= 0 ? 'disabled' : ''}" 
+                    data-movie-id="${movie._id}" data-tipo="renta" ${movie.stock_renta <= 0 ? 'disabled' : ''}>
+                Añadir Renta
+            </button>
+            <button class="btn btn-sm btn-primary add-to-cart-btn w-100 ${movie.stock_compra <= 0 ? 'disabled' : ''}" 
+                    data-movie-id="${movie._id}" data-tipo="compra" ${movie.stock_compra <= 0 ? 'disabled' : ''}>
+                Añadir Compra
+            </button>
+        `;
+        // Encontrar el elemento .card dentro del 'link' y añadirle el footer.
+        // Esto es un poco hacky, idealmente la estructura de la card se crea una vez.
+        const innerCard = link.querySelector('.movie-card');
+        if(innerCard) { // Asegurarse que innerCard existe
+          innerCard.appendChild(cardFooter);
+        }
+
+
         movieListContainer.appendChild(card);
     });
 
     renderPagination(moviesData.totalPages, moviesData.currentPage);
-    addEventListenersToCartButtons();
+    addEventListenersToCartButtons(); // Esta función ya existe y debería seguir funcionando
 }
 
 function renderPagination(totalPages, page) { // 'page' es la currentPage

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Detalle de Película - Películas Online</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        .movie-poster-detail {
+            max-width: 100%;
+            height: auto;
+            max-height: 500px; /* Ajusta según necesidad */
+            object-fit: contain;
+        }
+        .details-section p {
+            margin-bottom: 0.5rem;
+        }
+        .action-buttons .btn {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html"><img src="img/logo_img.png" alt="Logo" height="40"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                    </ul>
+                <div id="user-session-controls-detail" class="d-flex align-items-center ms-auto"></div>
+                <div id="cart-link-container-detail" class="nav-item ms-2"></div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div id="alert-container-movie-detail"></div>
+        <div id="movie-detail-content" class="row">
+            <div class="col-12 text-center" id="movie-detail-loader">
+                <div class="spinner-border text-primary mt-5" style="width: 3rem; height: 3rem;" role="status">
+                    <span class="visually-hidden">Cargando detalles de la película...</span>
+                </div>
+                <p class="mt-2">Cargando detalles...</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="loginModalDetail" tabindex="-1" aria-labelledby="loginModalLabelDetail" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header"><h5 class="modal-title">Iniciar Sesión</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+                <div class="modal-body">
+                    <div id="login-alert-container-detail"></div>
+                    <form id="loginFormDetail">
+                        <div class="mb-3"><label for="loginEmailInputDetail" class="form-label">Correo</label><input type="email" class="form-control" id="loginEmailInputDetail" required></div>
+                        <div class="mb-3"><label for="loginPasswordInputDetail" class="form-label">Contraseña</label><input type="password" class="form-control" id="loginPasswordInputDetail" required></div>
+                        <button type="submit" class="btn btn-primary w-100">Login</button>
+                    </form>
+                </div>
+                <div class="modal-footer text-center w-100"><p class="mb-0">¿No tienes cuenta? <a href="#" data-bs-toggle="modal" data-bs-target="#registerModalDetail" data-bs-dismiss="modal">Regístrate</a></p></div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="registerModalDetail" tabindex="-1" aria-labelledby="registerModalLabelDetail" aria-hidden="true">
+         <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header"><h5 class="modal-title">Crear Cuenta</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+                <div class="modal-body">
+                    <div id="register-alert-container-detail"></div>
+                    <form id="registerFormDetail">
+                        <div class="row">
+                            <div class="col-md-6 mb-3"><label>Usuario</label><input type="text" class="form-control" id="registerUsernameInputDetail" required></div>
+                            <div class="col-md-6 mb-3"><label>Nombre Completo</label><input type="text" class="form-control" id="registerNombreInputDetail" required></div>
+                        </div>
+                        <div class="mb-3"><label>Correo</label><input type="email" class="form-control" id="registerEmailInputDetail" required></div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3"><label>Contraseña</label><input type="password" class="form-control" id="registerPasswordInputDetail" required></div>
+                            <div class="col-md-6 mb-3"><label>Confirmar Contraseña</label><input type="password" class="form-control" id="registerConfirmPasswordInputDetail" required></div>
+                        </div>
+                        <div class="mb-3"><label>Fecha Nacimiento</label><input type="date" class="form-control" id="registerFechaNacimientoInputDetail" required></div>
+                        <button type="submit" class="btn btn-success w-100">Crear Cuenta</button>
+                    </form>
+                </div>
+                <div class="modal-footer text-center w-100"><p class="mb-0">¿Ya tienes cuenta? <a href="#" data-bs-toggle="modal" data-bs-target="#loginModalDetail" data-bs-dismiss="modal">Inicia Sesión</a></p></div>
+            </div>
+        </div>
+    </div>
+
+
+    <footer class="bg-light text-center text-lg-start mt-auto py-3">
+        <div class="text-center p-3">© 2025 Películas Online</div>
+    </footer>
+
+    <script type="module" src="js/movie-detail-page.js"></script>
+</body>
+</html>

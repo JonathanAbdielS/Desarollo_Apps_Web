@@ -122,9 +122,65 @@ const getMe = async (req, res) => {
     }
 };
 
+// @desc    Cambiar la contraseña del usuario logueado
+// @route   PUT /api/auth/changepassword
+// @access  Private
+const changePassword = async (req, res) => {
+    const { currentPassword, newPassword, confirmNewPassword } = req.body;
+    const userId = req.user.id; // Obtenido del middleware 'protect'
+
+    try {
+        // Validaciones básicas
+        if (!currentPassword || !newPassword || !confirmNewPassword) {
+            return res.status(400).json({ message: 'Por favor, completa todos los campos.' });
+        }
+        if (newPassword !== confirmNewPassword) {
+            return res.status(400).json({ message: 'La nueva contraseña y su confirmación no coinciden.' });
+        }
+        if (newPassword.length < 6) {
+            return res.status(400).json({ message: 'La nueva contraseña debe tener al menos 6 caracteres.' });
+        }
+        if (newPassword === currentPassword) {
+            return res.status(400).json({ message: 'La nueva contraseña no puede ser igual a la contraseña actual.' });
+        }
+
+
+        const user = await User.findById(userId);
+        if (!user) {
+            // Esto no debería pasar si el token es válido, pero por si acaso
+            return res.status(404).json({ message: 'Usuario no encontrado.' });
+        }
+
+        // Verificar la contraseña actual
+        const isMatch = await user.comparePassword(currentPassword);
+        if (!isMatch) {
+            return res.status(401).json({ message: 'La contraseña actual es incorrecta.' });
+        }
+
+        // Si la contraseña actual es correcta, actualizamos a la nueva
+        // El hook pre-save en el modelo User se encargará de hashear la nueva contraseña
+        user.password = newPassword;
+        await user.save();
+
+        // Opcional: ¿Invalidar tokens antiguos? Para una app simple, no es estrictamente necesario,
+        // el usuario podría seguir usando el token antiguo hasta que expire.
+        // Para mayor seguridad, se podría implementar una lista negra de tokens o similar.
+
+        res.json({ message: 'Contraseña actualizada exitosamente. Por favor, vuelve a iniciar sesión con tu nueva contraseña.' });
+
+    } catch (error) {
+        console.error("Error en changePassword:", error);
+        if (error.name === 'ValidationError') { // Por si alguna validación del modelo User se activa
+             const messages = Object.values(error.errors).map(val => val.message);
+             return res.status(400).json({ message: messages.join('. ') });
+        }
+        res.status(500).json({ message: 'Error del servidor al cambiar la contraseña.' });
+    }
+};
 
 module.exports = {
     registerUser,
     loginUser,
-    getMe
+    getMe,
+    changePassword
 };
